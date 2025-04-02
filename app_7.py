@@ -5,12 +5,9 @@ import matplotlib.pyplot as plt
 from PIL                 import Image
 from io                  import BytesIO
 
-# Set no tema do seaborn para melhorar o visual dos plots
 custom_params = {"axes.spines.right": False, "axes.spines.top": False}
 sns.set_theme(style="ticks", rc=custom_params)
 
-
-# Função para ler os dados
 @st.cache(show_spinner= True, allow_output_mutation=True)
 def load_data(file_data):
     try:
@@ -18,7 +15,6 @@ def load_data(file_data):
     except:
         return pd.read_excel(file_data)
 
-# Função para filtrar baseado na multiseleção de categorias
 @st.cache(allow_output_mutation=True)
 def multiselect_filter(relatorio, col, selecionados):
     if 'all' in selecionados:
@@ -26,12 +22,10 @@ def multiselect_filter(relatorio, col, selecionados):
     else:
         return relatorio[relatorio[col].isin(selecionados)].reset_index(drop=True)
 
-# Função para converter o df para csv
 @st.cache
 def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
 
-# Função para converter o df para excel
 @st.cache
 def to_excel(df):
     output = BytesIO()
@@ -42,28 +36,23 @@ def to_excel(df):
     return processed_data
 
 
-# Função principal da aplicação
 def main():
-    # Configuração inicial da página da aplicação
+    
     st.set_page_config(page_title = 'Telemarketing analisys', \
         page_icon = 'telmarketing_icon.png',
         layout="wide",
         initial_sidebar_state='expanded'
     )
 
-    # Título principal da aplicação
     st.write('# Telemarketing analisys')
     st.markdown("---")
     
-    # Apresenta a imagem na barra lateral da aplicação
     image = Image.open("Bank-Branding.jpg")
     st.sidebar.image(image)
 
-    # Botão para carregar arquivo na aplicação
     st.sidebar.write("## Suba o arquivo")
     data_file_1 = st.sidebar.file_uploader("Bank marketing data", type = ['csv','xlsx'])
 
-    # Verifica se há conteúdo carregado na aplicação
     if (data_file_1 is not None):
         bank_raw = load_data(data_file_1)
         bank = bank_raw.copy()
@@ -73,10 +62,8 @@ def main():
 
         with st.sidebar.form(key='my_form'):
 
-            # SELECIONA O TIPO DE GRÁFICO
             graph_type = st.radio('Tipo de gráfico:', ('Barras', 'Pizza'))
         
-            # IDADES
             max_age = int(bank.age.max())
             min_age = int(bank.age.min())
             idades = st.slider(label='Idade', 
@@ -132,8 +119,6 @@ def main():
             day_of_week_selected =  st.multiselect("Dia da semana", day_of_week_list, ['all'])
 
 
-                    
-            # encadeamento de métodos para filtrar a seleção
             bank = (bank.query("age >= @idades[0] and age <= @idades[1]")
                         .pipe(multiselect_filter, 'job', jobs_selected)
                         .pipe(multiselect_filter, 'marital', marital_selected)
@@ -148,7 +133,6 @@ def main():
 
             submit_button = st.form_submit_button(label='Aplicar')
         
-        # Botões de download dos dados filtrados
         st.write('## Após os filtros')
         st.write(bank.head())
         
@@ -158,7 +142,7 @@ def main():
                             file_name= 'bank_filtered.xlsx')
         st.markdown("---")
 
-        # PLOTS    
+  
         fig, ax = plt.subplots(1, 2, figsize = (5,3))
 
         bank_raw_target_perc = bank_raw.y.value_counts(normalize = True).to_frame()*100
@@ -170,7 +154,6 @@ def main():
         except:
             st.error('Erro no filtro')
         
-        # Botões de download dos dados dos gráficos
         col1, col2 = st.columns(2)
 
         df_xlsx = to_excel(bank_raw_target_perc)
@@ -190,7 +173,7 @@ def main():
     
 
         st.write('## Proporção de aceite')
-        # PLOTS    
+     
         if graph_type == 'Barras':
             sns.barplot(x = bank_raw_target_perc.index, 
                         y = 'y',
