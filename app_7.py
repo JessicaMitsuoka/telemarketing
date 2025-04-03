@@ -188,8 +188,7 @@ def main():
         plt.tight_layout()
         st.pyplot(fig)
 
-if __name__ == '__main__':
-    main()
+
 
     
 
