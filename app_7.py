@@ -8,26 +8,25 @@ from io import BytesIO
 custom_params = {"axes.spines.right": False, "axes.spines.top": False}
 sns.set_theme(style="ticks", rc=custom_params)
 
-# Substituições de cache:
-@st.cache_data(show_spinner=True)  # Para dados que podem ser serializados
+@st.cache_data(show_spinner=True)
 def load_data(file_data):
     try:
         return pd.read_csv(file_data, sep=';')
     except:
         return pd.read_excel(file_data)
 
-@st.cache_data  # Para operações com dados
+@st.cache_data
 def multiselect_filter(relatorio, col, selecionados):
     if 'all' in selecionados:
         return relatorio
     else:
         return relatorio[relatorio[col].isin(selecionados)].reset_index(drop=True)
 
-@st.cache_data  # Para conversão de DataFrame
+@st.cache_data
 def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
 
-@st.cache_data  # Para criação de arquivo Excel
+@st.cache_data
 def to_excel(df):
     output = BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
@@ -73,7 +72,6 @@ def main():
                 step=1
             )
 
-            # Listas de seleção
             def get_filter_options(column):
                 options = bank[column].unique().tolist()
                 options.append('all')
@@ -90,7 +88,6 @@ def main():
 
             submit_button = st.form_submit_button(label='Aplicar')
         
-        # Aplicando filtros
         bank = (bank.query("age >= @idades[0] and age <= @idades[1]")
                 .pipe(multiselect_filter, 'job', jobs_selected)
                 .pipe(multiselect_filter, 'marital', marital_selected)
@@ -112,18 +109,16 @@ def main():
         )
         st.markdown("---")
 
-        # Análise de proporção
-        fig, ax = plt.subplots(1, 2, figsize=(5, 3))
-
-        bank_raw_target_perc = bank_raw.y.value_counts(normalize=True).to_frame()*100
+        bank_raw_target_perc = bank_raw.y.value_counts(normalize=True).to_frame(name='proportion') * 100
         bank_raw_target_perc = bank_raw_target_perc.sort_index()
         
         try:
-            bank_target_perc = bank.y.value_counts(normalize=True).to_frame()*100
+            bank_target_perc = bank.y.value_counts(normalize=True).to_frame(name='proportion') * 100
             bank_target_perc = bank_target_perc.sort_index()
-        except:
-            st.error('Erro no filtro')
-        
+        except Exception as e:
+            st.error(f'Erro no filtro: {str(e)}')
+            st.stop() 
+
         col1, col2 = st.columns(2)
 
         col1.write('### Proporção original')
@@ -144,28 +139,53 @@ def main():
         st.markdown("---")
     
         st.write('## Proporção de aceite')
-     
+        
+        fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+        
         if graph_type == 'Barras':
-            sns.barplot(x=bank_raw_target_perc.index, 
-                        y='y',
-                        data=bank_raw_target_perc, 
+            sns.barplot(x=bank_raw_target_perc.index,
+                        y='proportion',
+                        data=bank_raw_target_perc,
                         ax=ax[0])
             ax[0].bar_label(ax[0].containers[0])
             ax[0].set_title('Dados brutos', fontweight="bold")
+            ax[0].set_ylabel('Proporção (%)')
             
-            sns.barplot(x=bank_target_perc.index, 
-                        y='y', 
-                        data=bank_target_perc, 
+          
+            sns.barplot(x=bank_target_perc.index,
+                        y='proportion',
+                        data=bank_target_perc,
                         ax=ax[1])
             ax[1].bar_label(ax[1].containers[0])
             ax[1].set_title('Dados filtrados', fontweight="bold")
+            ax[1].set_ylabel('Proporção (%)')
         else:
-            bank_raw_target_perc.plot(kind='pie', autopct='%.2f', y='y', ax=ax[0])
+          
+            bank_raw_target_perc.plot(kind='pie',
+                                    y='proportion',
+                                    autopct='%1.1f%%',
+                                    ax=ax[0],
+                                    legend=False,
+                                    labels=None,
+                                    startangle=90,
+                                    counterclock=False)
             ax[0].set_title('Dados brutos', fontweight="bold")
+            ax[0].set_ylabel('')
             
-            bank_target_perc.plot(kind='pie', autopct='%.2f', y='y', ax=ax[1])
+        
+            bank_target_perc.plot(kind='pie',
+                                y='proportion',
+                                autopct='%1.1f%%',
+                                ax=ax[1],
+                                legend=False,
+                                labels=None,
+                                startangle=90,
+                                counterclock=False)
             ax[1].set_title('Dados filtrados', fontweight="bold")
+            ax[1].set_ylabel('')
 
+        # Ajustando layout e exibindo
+        plt.tight_layout()
         st.pyplot(fig)
 
 if __name__ == '__main__':
