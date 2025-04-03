@@ -6,7 +6,7 @@ Um simples resumo do uso/propósito do projeto.
 
 Um parágrafo aprofundando mais sobre o seu projeto e uma explicação geral do uso.
 
-### Link para aplicação 
+### Link para aplicação
 https://telemarketing-1-1g2u.onrender.com
 
 ## Utilização
