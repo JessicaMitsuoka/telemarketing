@@ -1,5 +1,4 @@
-![Logo](images/nom<img width="479" alt="Ebac cursos" src="https://github.com/user-attachments/assets/22ae5d4d-d2a3-47e9-9575-d28b1faefe30" />
-e-da-imagem.jpg)
+![Imagem](https://i.imgur.com/abcdefg.png)
 
 # Título do projeto
 
