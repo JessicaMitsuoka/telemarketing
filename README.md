@@ -1,3 +1,5 @@
+![Logo EBAC](./images/ebac-logo.png){: width="300"}
+
 # Título do projeto
 
 Um simples resumo do uso/propósito do projeto.
