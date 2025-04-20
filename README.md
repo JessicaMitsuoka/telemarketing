@@ -1,8 +1,8 @@
-<p align="center">
-  <span style="font-family: Arial; font-size: 16px; color: black;">
+<svg width="300" height="60" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="35" font-family="Arial" font-size="16" fill="#000000">
     Escola Britânica de Artes Criativas &amp; Tecnologia
-  </span>
-</p>
+  </text>
+</svg>
 
 # Título do projeto
 
