@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/1096d9f9-b139-4b10-a0c1-5fa8a5271f6d)
+![Logo EBAC sem fundo](/docs/logo-ebac-transparente.png){: width="100"}
 
 # Título do projeto
 
