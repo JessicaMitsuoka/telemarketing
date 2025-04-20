@@ -1,3 +1,5 @@
+![https://images.app.goo.gl/2H7UkXWndZeXWvqv7](https://exemplo.com/imagem.jpg)
+
 # Título do projeto
 
 Um simples resumo do uso/propósito do projeto.
