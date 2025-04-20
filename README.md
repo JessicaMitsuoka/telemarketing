@@ -1,4 +1,4 @@
-![Logo EBAC](https://raw.githubusercontent.com/JessicaMitsuoka/nome-do-repositorio/main/images/ebac-logo.png){: width="300"}
+<img src="./images/ebac-logo.png" alt="Logo EBAC" width="300">
 
 # Título do projeto
 
