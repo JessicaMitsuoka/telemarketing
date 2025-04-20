@@ -1,4 +1,8 @@
-![Logo EBAC sem fundo](/docs/logo-ebac-transparente.png){: width="100"}
+<p align="center">
+  <span style="font-family: Arial; font-size: 16px; color: black;">
+    Escola Britânica de Artes Criativas &amp; Tecnologia
+  </span>
+</p>
 
 # Título do projeto
 
