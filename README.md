@@ -1,4 +1,4 @@
-![Logo EBAC](./images/ebac-logo.png)
+![Logo EBAC](./images/ebac-logo.png){: width="300"}
 
 # Título do projeto
 
