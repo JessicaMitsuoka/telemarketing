@@ -1,5 +1,3 @@
-![Logo EBAC](https://raw.githubusercontent.com/JessicaMitsuoka/yourrepo/main/images/ebac-logo.png)
-
 # Título do projeto
 
 Um simples resumo do uso/propósito do projeto.
