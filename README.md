@@ -1,4 +1,4 @@
-<img src="./images/ebac-logo.png" alt="Logo EBAC" width="300">
+![Logo EBAC](./images/ebac-logo.png){: width="200"}
 
 # Título do projeto
 
