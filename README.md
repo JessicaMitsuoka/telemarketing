@@ -1,4 +1,5 @@
-![https://images.app.goo.gl/2H7UkXWndZeXWvqv7](https://exemplo.com/imagem.jpg)
+![Logo](images/nom<img width="479" alt="Ebac cursos" src="https://github.com/user-attachments/assets/22ae5d4d-d2a3-47e9-9575-d28b1faefe30" />
+e-da-imagem.jpg)
 
 # Título do projeto
 
