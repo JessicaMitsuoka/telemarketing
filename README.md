@@ -1,5 +1,4 @@
-![Logo EBAC](https://raw.githubusercontent.com/JessicaMitsuoka/telemarketing
-/main/ebac-logo.png){: width="300"}
+<img width="549" alt="ebac-logo" src="https://github.com/user-attachments/assets/6bb4bb5c-db9a-4107-a5ca-967b9eb1f659" />
 
 # Título do projeto
 
